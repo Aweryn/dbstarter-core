@@ -135,58 +135,8 @@ class DBStarter_Core {
 
     public function display_admin_page() {
         // Empty for now
-        $field_groups = acf_get_field_groups();
-        $block_fields = array();
 
-        $block_key = 'block';
-
-        foreach($field_groups as $group) {
-            if($group['description'] == $block_key) {
-                array_push($block_fields, $group);
-            }
-        }
-
-        $layouts = array();
-
-        if($block_fields) {
-            foreach($block_fields as $layout) {
-                $fields = acf_get_fields($layout);
-
-                $formatted_fields = array();
-
-                if($fields) {
-                    foreach($fields as $field) {
-                        $field_data =
-                            array (
-                                'key' => $field['key'],
-                                'label' => $field['label'],
-                                'name' => $field['name'],
-                                'type' => $field['type'],
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array (
-                                'width' => '',
-                                'class' => '',
-                                'id' => '',
-                                ),
-                                'default_value' => $field['default_value'],
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                                'readonly' => 0,
-                                'disabled' => 0,
-                            );
-                        array_push($formatted_fields, $field_data);
-                    }
-                }
-
-                echo '<pre>';
-                print_r($formatted_fields);
-                echo '</pre>';
-            }
-        }
+        echo '//Silence is golden';
     }
 
     public function get_layouts() {
