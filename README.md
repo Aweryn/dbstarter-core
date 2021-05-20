@@ -4,6 +4,8 @@ DB Starter Core is a plugin designed to bootstrap the workflow used in projects 
 
 This plugin can be used by anyone but is built according to specific guidelines set by Don & Branco.
 
+The plugin includes various tools to help build new WordPress sites with ACF. It automatically creates clones of new field groups, adds it to a flexible layout as a clone and also generates PHP or Laravel Blade templates of your layouts with dynamic variables.
+
 ## Requirements
 
 The plugin is dependant on ACF Pro (Advanced Custom Fields) and optionally ACF Extended (although recommended). The plugin makes heavy use of ACF Flexible fields so [Classic Editor](https://wordpress.org/plugins/classic-editor/) is also recommended but the plugin works with WordPress Gutenberg editor as well.
