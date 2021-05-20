@@ -75,6 +75,20 @@ The tool includes an option to automatically generate php templates from your si
 
 The tool automatically generates extra fields based on your layout field types. For example an image field generates a $size variable `$size = wp_is_mobile() ? 'medium' : 'large';`
 
+page_hero.php example
+```php
+<?php
+    $title = get_sub_field('title'); 
+	$image = get_sub_field('image'); 
+	
+    $size = wp_is_mobile() ? "medium" : "large";
+	
+?>
+<div class="db_block block-page_hero">
+
+</div>
+```
+
 On later versions you can customize the block templates directly from WordPress.
 
 ## Upcoming
