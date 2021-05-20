@@ -12,7 +12,11 @@ The plugin is dependant on ACF Pro (Advanced Custom Fields) and optionally ACF E
 
 ## Installation
 
-After installing the required plugins you can proceed to activate this plugin. No other actions are needed. (On later versions you will be able to name the plugin generated fields yourself)
+1. Install [ACF Pro](https://www.advancedcustomfields.com/) And optionally [ACF Extended](https://wordpress.org/plugins/acf-extended/)
+2. Clone this repo to your /plugins folder
+3. Activate all plugins!
+
+After activating the plugin no other actions are needed. (On later versions you will be able to rename the dynamically generated acf fields yourself)
 
 ## Creating blocks
 
