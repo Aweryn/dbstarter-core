@@ -78,7 +78,7 @@ The tool automatically generates extra fields based on your layout field types. 
 page_hero.php example
 ```php
 <?php
-    $title = get_sub_field('title'); 
+    $title = get_sub_field('title');
 	$image = get_sub_field('image'); 
 	
     $size = wp_is_mobile() ? "medium" : "large";
