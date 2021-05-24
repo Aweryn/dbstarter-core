@@ -95,11 +95,33 @@ page_hero.php example
 
 On later versions you can customize the block templates directly from WordPress.
 
+## DB Settings
+
+The plugin automatically creates an ACF options page that includes various nice to have settings for theme building. 
+
+Currently the plugin includes the following settings
+
+===Common===
+
+===Media===
+
+1. Add media size
+- Allows you to add WordPress media sizes directly from the settings page.
+
 ## Upcoming
 
 ===Loremize===
 
 Loremize is an upcoming function that generates Lorem Ipsum for your empty text fields in your layouts. The button currently does nothing :)
+
+===Manifest.json===
+
+Later you can automatically generate a web manifest file for your project based on a selected image.
+
+## Version history
+
+`0.1 (18.5.2021) - First alpha release with basic template generation`
+`0.2 (24.5.2021) - Added DB Settings page under "Tools" with snippets for your project. This will be gradually updated with useful features.`
 
 ## Credits
 

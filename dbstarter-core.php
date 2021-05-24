@@ -28,7 +28,7 @@ class DBStarter_Core {
         register_activation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_activate') );
         // register_deactivation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_deactivate') );
         add_action('admin_menu', array($this, 'create_menu'));
-        add_action('init', array($this, 'register_core_fields'));
+        add_action('acf/init', array($this, 'register_core_fields'));
         add_action('init', array($this, 'register_user_fields'), 20);
         add_action('acfe/fields/button/key=db_generate_template_button', array($this, 'db_generate_template_ajax'), 30, 2);
         add_action('acfe/fields/button/key=db_generate_template_button_blade', array($this, 'db_generate_template_blade_ajax'), 30, 2);
@@ -36,10 +36,23 @@ class DBStarter_Core {
         add_action('acf/input/admin_enqueue_scripts', array($this, 'my_acf_admin_enqueue_scripts'));
 
         // add_action('admin_enqueue_scripts', array($this, 'db_plugin_scripts'));
+
+        // Register custom image sizes
+        add_action('after_setup_theme', array($this, 'db_core_set_image_sizes'));
     }
 
     function db_plugin_scripts() {
         //
+    }
+
+    function db_core_set_image_sizes() {
+        $image_sizes = get_field('db_core_add_media_size', 'option');
+
+        if($image_sizes) {
+            foreach($image_sizes as $size) {
+                add_image_size( $size['name'], $size['width'], $size['length'], $size['crop'] );
+            } 
+        }
     }
 
     function my_acf_admin_enqueue_scripts() {
@@ -122,15 +135,29 @@ class DBStarter_Core {
     }
 
     public function create_menu() {
-        add_submenu_page(
-            'tools.php',
-            __('DBStarter', 'dbstarter'),
-            'DBStarter',
-            'manage_options',
-            'dbstarter-settings',
-            array($this, 'display_admin_page'),
-            'dashicons-admin-tools'
-        );
+        // add_submenu_page(
+        //     'tools.php',
+        //     __('DBStarter', 'dbstarter'),
+        //     'DBStarter',
+        //     'manage_options',
+        //     'dbstarter-settings',
+        //     array($this, 'display_admin_page'),
+        //     'dashicons-admin-tools'
+        // );
+
+        if( function_exists('acf_add_options_page') ) {
+
+            // Register options page.
+            $option_page = acf_add_options_page(array(
+                'page_title'    => __('DB Core Settings'),
+                'parent_slug'   => 'tools.php',
+                'menu_title'    => __('DB Settings'),
+                'menu_slug'     => 'db-core-settings',
+                'capability'    => 'manage_options',
+                'redirect'      => false,
+                'autoload'      => true,
+            ));
+        }
     }
 
     public function display_admin_page() {
@@ -285,6 +312,116 @@ class DBStarter_Core {
                     'position' => 'side',
                 ));
             }
+
+            if( function_exists('acf_add_local_field_group') ):
+
+                acf_add_local_field_group(array(
+                    'key' => 'db_core_settings',
+                    'title' => 'DB Core Settings',
+                    'fields' => array (
+                        array (
+                            'key' => 'db_core_settings_title_common',
+                            'label' => 'Common',
+                            'type' => 'tab',
+                        ),
+                        array(
+                            'key' => 'db_core_settings_common_message',
+                            'label' => 'Help',
+                            'type' => 'message',
+                            'message' => 'All kinds of general settings for your theme',
+                        ),
+                        array (
+                            'key' => 'db_core_settings_title_media',
+                            'label' => 'Media',
+                            'type' => 'tab',
+                        ),
+                        array(
+                            'key' => 'db_core_settings_media_message',
+                            'label' => 'Help',
+                            'type' => 'message',
+                            'message' => 'Various settings regarding Media files in your theme',
+                        ),
+                        // array(
+                        //     'key' => 'db_core_generate_manifest',
+                        //     'label' => 'Generate Manifest',
+                        //     'name' => 'db_generate_manifest',
+                        //     'type' => 'acfe_button',
+                        //     'button_ajax' => true,
+                        //     'instructions' => 'Automatically generate manifest.json file'
+                        // ),
+                        array(
+                            'key'   => 'db_core_add_media_size',
+                            'label' => 'Add media size',
+                            'name'  => 'db_add_media_size',
+                            'type'  => 'repeater',
+                            'collapsed' => '',
+                            'min' => '',
+                            'max' => '',
+                            'layout' => 'table',
+                            'instructions' => 'Add a usable media size type, name needs to be either "my_media_size" or "my-media-size"',
+                            'button_label' => 'Add new image size',
+                            'sub_fields' => array(
+                                array(
+                                    'key' => 'db_core_media_size_name',
+                                    'label' => 'Name',
+                                    'name' => 'name',
+                                    'type' => 'text',
+                                    'wrapper' => array(
+                                        'width' => '50%',
+                                        'class' => '',
+                                        'id' => '',
+                                    ),
+                                ),
+                                array(
+                                    'key' => 'db_core_media_size_width',
+                                    'label' => 'Width',
+                                    'name' => 'width',
+                                    'type' => 'number',
+                                    'wrapper' => array(
+                                        'width' => '16.6666667%',
+                                        'class' => '',
+                                        'id' => '',
+                                    ),
+                                ),
+                                array(
+                                    'key' => 'db_core_media_size_length',
+                                    'label' => 'Length',
+                                    'name' => 'length',
+                                    'type' => 'number',
+                                    'wrapper' => array(
+                                        'width' => '16.6666667%',
+                                        'class' => '',
+                                        'id' => '',
+                                    ),
+                                ),
+                                array(
+                                    'key' => 'db_core_media_size_crop',
+                                    'label' => 'Crop',
+                                    'name' => 'crop',
+                                    'type' => 'true_false',
+                                    'wrapper' => array(
+                                        'width' => '16.6666667%',
+                                        'class' => '',
+                                        'id' => '',
+                                    ),
+                                    'ui' => 1,
+                                    'default_value' => 1,
+                                ),
+                            )
+                        )
+                    ),
+                    'location' => array (
+                        array (
+                            array (
+                                'param' => 'options_page',
+                                'operator' => '==',
+                                'value' => 'db-core-settings',
+                            ),
+                        ),
+                    ),
+                ));
+
+            endif;
             
         endif;
     }
