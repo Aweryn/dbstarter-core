@@ -108,6 +108,10 @@ Currently the plugin includes the following settings
 1. Add media size
 - Allows you to add WordPress media sizes directly from the settings page.
 
+===Checklist===
+
+Checklist includes a list of items to check before releasing your site. The list is based on WP ENGINE's Ultimate Wordpress Checklist which can be found [here](https://wpengine.com/wp-content/uploads/2016/03/WP-EBK-PreLaunchCheck-Torque-v05-PUB.pdf).
+
 ## Upcoming
 
 ===Loremize===
@@ -120,8 +124,11 @@ Later you can automatically generate a web manifest file for your project based 
 
 ## Version history
 
-`0.1 (18.5.2021) - First alpha release with basic template generation`
-`0.2 (24.5.2021) - Added DB Settings page under "Tools" with snippets for your project. This will be gradually updated with useful features.`
+=0.3= (26.5.2021) - Added a checklist section under DB Settings. This will be completed in the next update. A widget for current development status is also under construction.
+
+=0.2= (24.5.2021) - Added DB Settings page under "Tools" with snippets for your project. This will be gradually updated with useful features.
+
+=0.1= (18.5.2021) - First alpha release with basic template generation
 
 ## Credits
 

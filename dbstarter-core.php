@@ -22,27 +22,71 @@ use function Env\env;
 define ( 'DBSTARTER_MAIN_FILE' , __FILE__ );
 define ( 'PLUGIN_NAME', __FILE__ );
 
+include( plugin_dir_path( __FILE__ ) . 'inc/checklist.php');
+
 class DBStarter_Core {
 
     public function __construct() {
+
         register_activation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_activate') );
         // register_deactivation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_deactivate') );
         add_action('admin_menu', array($this, 'create_menu'));
         add_action('acf/init', array($this, 'register_core_fields'));
+
+        // Load checklist fields from a separate file
+        add_action('acf/init', 'db_register_checklist');
+
         add_action('init', array($this, 'register_user_fields'), 20);
         add_action('acfe/fields/button/key=db_generate_template_button', array($this, 'db_generate_template_ajax'), 30, 2);
         add_action('acfe/fields/button/key=db_generate_template_button_blade', array($this, 'db_generate_template_blade_ajax'), 30, 2);
 
         add_action('acf/input/admin_enqueue_scripts', array($this, 'my_acf_admin_enqueue_scripts'));
 
+        add_action('acf/render_field/name=my_dynamic_message', array($this, 'my_message'), 20);
         // add_action('admin_enqueue_scripts', array($this, 'db_plugin_scripts'));
 
         // Register custom image sizes
         add_action('after_setup_theme', array($this, 'db_core_set_image_sizes'));
+
     }
 
     function db_plugin_scripts() {
         //
+    }
+
+    function my_message() {
+        $d1 = get_field('db_core_settings_title_checklist_group', 'options');
+        $d1_done = $d1['done_1'];
+        $d2_done = $d1['done_2'];
+        $d3_done = $d1['done_3'];
+        $d4_done = $d1['done_4'];
+        $d5_done = $d1['done_5'];
+        $d6_done = $d1['done_6'];
+        $d7_done = $d1['done_7'];
+
+        $content_done = $d1_done + $d2_done + $d3_done + $d4_done + $d5_done + $d6_done + $d7_done;
+
+        $done_design_1 = $d1['done_design_1'];
+        $done_design_2 = $d1['done_design_2'];
+        $done_design_3 = $d1['done_design_3'];
+        $done_design_4 = $d1['done_design_4'];
+        $done_design_5 = $d1['done_design_5'];
+        $done_design_6 = $d1['done_design_6'];
+        $done_design_7 = $d1['done_design_7'];
+
+        $design_done = $done_design_1 + $done_design_2 + $done_design_3 + $done_design_4 + $done_design_5 + $done_design_6 + $done_design_7;
+        ?>
+        <table class="wp-list-table widefat fixed striped">
+            <tr style="<?= $content_done == 7 ? 'background-color: #d7ffd7' : ''; ?>">
+                <td>Content</td>
+                <td><?= $content_done; ?> / 7</td>
+            </tr>
+            <tr style="<?= $design_done == 7 ? 'background-color: #d7ffd7' : ''; ?>">
+                <td>Design</td>
+                <td><?= $design_done; ?> / 7</td>
+            </tr>
+        </table>
+    <?php
     }
 
     function db_core_set_image_sizes() {
@@ -64,6 +108,10 @@ class DBStarter_Core {
             // Stop activation redirect and show error
             wp_die('Sorry, but this plugin requires the Parent Plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
         }
+    }
+
+    function get_checklist_fields() {
+        return checklist_fields();
     }
 
     function generate_template($post_id, $type) {
@@ -408,7 +456,24 @@ class DBStarter_Core {
                                     'default_value' => 1,
                                 ),
                             )
-                        )
+                        ),
+                        array(
+                            'key' => 'db_core_settings_title_checklist',
+                            'label' => 'Checklist',
+                            'type' => 'tab',
+                        ),
+                        array(
+                            'key'       => 'field_my_dynamic_message',
+                            'label'     => 'Current checklist status',
+                            'name'      => 'my_dynamic_message',
+                            'type'      => 'acfe_dynamic_message',
+                        ),
+                        array(
+                            'key' => 'db_core_settings_title_checklist_group',
+                            'label' => 'Site checklist',
+                            'type' => 'group',
+                            'sub_fields' => $this->get_checklist_fields(),
+                        ),
                     ),
                     'location' => array (
                         array (
