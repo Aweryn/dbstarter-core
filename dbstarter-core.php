@@ -25,7 +25,6 @@ define ( 'PLUGIN_NAME', __FILE__ );
 include( plugin_dir_path( __FILE__ ) . 'inc/checklist.php');
 
 class DBStarter_Core {
-
     public function __construct() {
 
         register_activation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_activate') );
@@ -36,13 +35,17 @@ class DBStarter_Core {
         // Load checklist fields from a separate file
         add_action('acf/init', 'db_register_checklist');
 
+        if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
+            add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
+        }
+
         add_action('init', array($this, 'register_user_fields'), 20);
         add_action('acfe/fields/button/key=db_generate_template_button', array($this, 'db_generate_template_ajax'), 30, 2);
         add_action('acfe/fields/button/key=db_generate_template_button_blade', array($this, 'db_generate_template_blade_ajax'), 30, 2);
 
         add_action('acf/input/admin_enqueue_scripts', array($this, 'my_acf_admin_enqueue_scripts'));
 
-        add_action('acf/render_field/name=my_dynamic_message', array($this, 'my_message'), 20);
+        add_action('acf/render_field/name=my_dynamic_message', 'my_message', 20);
         // add_action('admin_enqueue_scripts', array($this, 'db_plugin_scripts'));
 
         // Register custom image sizes
@@ -54,40 +57,6 @@ class DBStarter_Core {
         //
     }
 
-    function my_message() {
-        $d1 = get_field('db_core_settings_title_checklist_group', 'options');
-        $d1_done = $d1['done_1'];
-        $d2_done = $d1['done_2'];
-        $d3_done = $d1['done_3'];
-        $d4_done = $d1['done_4'];
-        $d5_done = $d1['done_5'];
-        $d6_done = $d1['done_6'];
-        $d7_done = $d1['done_7'];
-
-        $content_done = $d1_done + $d2_done + $d3_done + $d4_done + $d5_done + $d6_done + $d7_done;
-
-        $done_design_1 = $d1['done_design_1'];
-        $done_design_2 = $d1['done_design_2'];
-        $done_design_3 = $d1['done_design_3'];
-        $done_design_4 = $d1['done_design_4'];
-        $done_design_5 = $d1['done_design_5'];
-        $done_design_6 = $d1['done_design_6'];
-        $done_design_7 = $d1['done_design_7'];
-
-        $design_done = $done_design_1 + $done_design_2 + $done_design_3 + $done_design_4 + $done_design_5 + $done_design_6 + $done_design_7;
-        ?>
-        <table class="wp-list-table widefat fixed striped">
-            <tr style="<?= $content_done == 7 ? 'background-color: #d7ffd7' : ''; ?>">
-                <td>Content</td>
-                <td><?= $content_done; ?> / 7</td>
-            </tr>
-            <tr style="<?= $design_done == 7 ? 'background-color: #d7ffd7' : ''; ?>">
-                <td>Design</td>
-                <td><?= $design_done; ?> / 7</td>
-            </tr>
-        </table>
-    <?php
-    }
 
     function db_core_set_image_sizes() {
         $image_sizes = get_field('db_core_add_media_size', 'option');
@@ -165,7 +134,7 @@ class DBStarter_Core {
                 }
             }
         }
-    } 
+    }
 
 
     function db_generate_template_blade_ajax($field, $post_id) {
@@ -315,7 +284,7 @@ class DBStarter_Core {
                 )
             ));
 
-            if(env('WP_ENV') == 'development') {
+            if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
                 acf_add_local_field_group(array(
                     'key' => 'db_generate_template',
                     'title' => 'DB Page tools',
@@ -461,6 +430,13 @@ class DBStarter_Core {
                             'key' => 'db_core_settings_title_checklist',
                             'label' => 'Checklist',
                             'type' => 'tab',
+                        ),
+                        array(
+                            'key' => 'db_core_checklist_extra_link',
+                            'label' => 'Project link',
+                            'name' => 'db_core_project_link',
+                            'type' => 'text',
+                            'instructions' => 'Insert url for project management.'
                         ),
                         array(
                             'key'       => 'field_my_dynamic_message',
