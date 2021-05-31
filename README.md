@@ -124,6 +124,8 @@ Later you can automatically generate a web manifest file for your project based 
 
 ## Version history
 
+=0.4= (31.5.2021) - Completed checklist view and added a checklist dashboard widget to display current Dev-status.
+
 =0.3= (26.5.2021) - Added a checklist section under DB Settings. This will be completed in the next update. A widget for current development status is also under construction.
 
 =0.2= (24.5.2021) - Added DB Settings page under "Tools" with snippets for your project. This will be gradually updated with useful features.
