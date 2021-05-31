@@ -303,7 +303,25 @@ class DBStarter_Core {
                             'name' => 'generate_blade',
                             'type' => 'acfe_button',
                             'button_ajax' => true,
-                            'instructions' => 'Generates Don & Branco approved Blade templates'
+                            'instructions' => 'Generates Don & Branco approved Blade templates',
+                            'button_id' => 'button_generate_blade',
+                        ),
+                        array(
+                            'key' => 'db_search_codex_title',
+                            'label' => 'Search keyword',
+                            'name' => 'search_codex_title',
+                            'type' => 'text',
+                            'instructions' => 'Search from WP Codex',
+                            'wrapper' => array(
+                                'id' => 'search_codex',
+                            ),
+                        ),
+                        array(
+                            'key' => 'db_search_codex',
+                            'name' => 'search_codex',
+                            'type' => 'acfe_button',
+                            'button_ajax' => true,
+                            'button_id' => 'button_codex',
                         ),
                         array(
                             'key' => 'db_generate_lorem',
@@ -311,7 +329,8 @@ class DBStarter_Core {
                             'name' => 'loremize',
                             'type' => 'acfe_button',
                             'button_ajax' => true,
-                            'instructions' => 'Autofill selected blocks with lorem ipsum'
+                            'instructions' => 'Copy Lorem Ipsum to your clipboard',
+                            'button_id' => 'button_lorem',
                         ),
                     ),
                     'location' => array (

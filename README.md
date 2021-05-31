@@ -95,6 +95,16 @@ page_hero.php example
 
 On later versions you can customize the block templates directly from WordPress.
 
+## Other Page tools
+
+===Search from wp codex===
+
+Allows you to directly search from WP Codex based on your keyword.
+
+===Loremize===
+
+Copies Lorem Ipsum to your clipboard.
+
 ## DB Settings
 
 The plugin automatically creates an ACF options page that includes various nice to have settings for theme building. 
@@ -114,17 +124,13 @@ Checklist includes a list of items to check before releasing your site. The list
 
 ## Upcoming
 
-===Loremize===
-
-Loremize is an upcoming function that generates Lorem Ipsum for your empty text fields in your layouts. The button currently does nothing :)
-
 ===Manifest.json===
 
 Later you can automatically generate a web manifest file for your project based on a selected image.
 
 ## Version history
 
-=0.4= (31.5.2021) - Completed checklist view and added a checklist dashboard widget to display current Dev-status.
+=0.4= (31.5.2021) - Completed checklist view and added a checklist dashboard widget to display current Dev-status. Added Loremize and WP Codex search to page tools.
 
 =0.3= (26.5.2021) - Added a checklist section under DB Settings. This will be completed in the next update. A widget for current development status is also under construction.
 
