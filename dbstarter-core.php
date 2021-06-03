@@ -33,13 +33,13 @@ class DBStarter_Core {
         add_action('acf/init', array($this, 'register_core_fields'));
 
         // Load checklist fields from a separate file
-        add_action('acf/init', 'db_register_checklist');
+        // add_action('acf/init', 'db_register_checklist');
 
         if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
             add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
         }
 
-        add_action('init', array($this, 'register_user_fields'), 20);
+        // add_action('init', array($this, 'register_user_fields'), 20);
         add_action('acfe/fields/button/key=db_generate_template_button', array($this, 'db_generate_template_ajax'), 30, 2);
         add_action('acfe/fields/button/key=db_generate_template_button_blade', array($this, 'db_generate_template_blade_ajax'), 30, 2);
 
