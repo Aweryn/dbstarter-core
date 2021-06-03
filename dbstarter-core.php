@@ -22,10 +22,10 @@ use function Env\env;
 define ( 'DBSTARTER_MAIN_FILE' , __FILE__ );
 define ( 'PLUGIN_NAME', __FILE__ );
 
-include( plugin_dir_path( __FILE__ ) . 'inc/checklist.php');
 
 class DBStarter_Core {
     public function __construct() {
+        include( plugin_dir_path( __FILE__ ) . 'inc/checklist.php');
 
         register_activation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_activate') );
         // register_deactivation_hook( DBSTARTER_MAIN_FILE, array( $this, 'plugin_deactivate') );
