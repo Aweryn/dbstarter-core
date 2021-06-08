@@ -206,9 +206,11 @@ class DBStarter_Core {
 
                 if($fields) {
                     foreach($fields as $field) {
+
+                        $key = 'db_field_' . $field['name'] . bin2hex(openssl_random_pseudo_bytes(3));
                         $field_data =
                             array (
-                                'key' => 'db_' . $field['name'],
+                                'key' => $key,
                                 'label' => $field['label'],
                                 'name' => $field['name'],
                                 'type' => $field['type'],
@@ -233,7 +235,6 @@ class DBStarter_Core {
                     }
                 }
 
-                $key = 'db_field_' . bin2hex(openssl_random_pseudo_bytes(3));
                 $name = strtolower($layout['title']);
                 $formatted_name = preg_replace('/\s+/', '_', $name);
                 $data = array (
