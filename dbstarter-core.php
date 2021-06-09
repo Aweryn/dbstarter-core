@@ -209,8 +209,6 @@ class DBStarter_Core {
                 if($fields) {
                     foreach($fields as $field) {
 
-                        print_r($field);
-
                         $my_key = 'db_field_' . $field['name'] . $static_key;
                         $field_data =
                             array (
