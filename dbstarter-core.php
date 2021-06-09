@@ -204,13 +204,15 @@ class DBStarter_Core {
 
                 $formatted_fields = array();
 
+                $static_key = substr($layout['key'], -4);
+
                 if($fields) {
                     foreach($fields as $field) {
 
-                        $key = 'db_field_' . $field['name'] . bin2hex(openssl_random_pseudo_bytes(3));
+                        $my_key = 'db_field_' . $field['name'] . $static_key;
                         $field_data =
                             array (
-                                'key' => $key,
+                                'key' => $my_key,
                                 'label' => $field['label'],
                                 'name' => $field['name'],
                                 'type' => $field['type'],
