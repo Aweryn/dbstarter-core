@@ -130,6 +130,8 @@ Later you can automatically generate a web manifest file for your project based 
 
 ## Version history
 
+=0.4.1= (9.6.2021) - Fixed an issue where a new key was generated for a field group after saving. Now a new block is assigned a static key based on the field groups key string.
+
 =0.4= (31.5.2021) - Completed checklist view and added a checklist dashboard widget to display current Dev-status. Added Loremize and WP Codex search to page tools.
 
 =0.3= (26.5.2021) - Added a checklist section under DB Settings. This will be completed in the next update. A widget for current development status is also under construction.

@@ -209,6 +209,8 @@ class DBStarter_Core {
                 if($fields) {
                     foreach($fields as $field) {
 
+                        print_r($field);
+
                         $my_key = 'db_field_' . $field['name'] . $static_key;
                         $field_data =
                             array (
@@ -216,8 +218,8 @@ class DBStarter_Core {
                                 'label' => $field['label'],
                                 'name' => $field['name'],
                                 'type' => $field['type'],
-                                'instructions' => '',
-                                'required' => 0,
+                                'instructions' => $field['instructions'],
+                                'required' => $field['required'],
                                 'conditional_logic' => 0,
                                 'wrapper' => array (
                                     'width' => '',
@@ -225,10 +227,10 @@ class DBStarter_Core {
                                     'id' => '',
                                 ),
                                 'default_value' => $field['default_value'],
-                                'placeholder' => '',
+                                'placeholder' => $field['placeholder'],
                                 'prepend' => '',
                                 'append' => '',
-                                'maxlength' => '',
+                                'maxlength' => $field['maxlength'],
                                 'readonly' => 0,
                                 'disabled' => 0,
                             );
