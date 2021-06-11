@@ -210,6 +210,7 @@ class DBStarter_Core {
                     foreach($fields as $field) {
 
                         $my_key = 'db_field_' . $field['name'] . $static_key;
+
                         $field_data =
                             array (
                                 'key' => $my_key,
@@ -232,6 +233,12 @@ class DBStarter_Core {
                                 'readonly' => 0,
                                 'disabled' => 0,
                             );
+
+                            if($field['type'] == 'true_false') {
+                                $field_data['ui'] = 1;
+                                $field_data['ui_on_text'] = $field['ui_on_text'];
+                                $field_data['ui_off_text'] = $field['ui_off_text'];
+                            }
 
                         array_push($formatted_fields, $field_data);
                     }
