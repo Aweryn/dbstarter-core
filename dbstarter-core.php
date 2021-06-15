@@ -211,6 +211,10 @@ class DBStarter_Core {
 
                         $my_key = 'db_field_' . $field['name'] . $static_key;
 
+                        if($field['type'] == 'select') {
+                            print_r($field);
+                        }
+
                         $field_data =
                             array (
                                 'key' => $my_key,
@@ -257,6 +261,13 @@ class DBStarter_Core {
                                 $field_data['return_format'] = $field['return_format'];
                                 $field_data['min'] = $field['min'];
                                 $field_data['max'] = $field['max'];
+                            }
+
+                            if($field['type'] == 'select') {
+                                $field_data['choices'] = $field['choices'];
+                                $field_data['allow_null'] = $field['allow_null'];
+                                $field_data['ui'] = $field['ui'];
+                                $field_data['return_format'] = $field['return_format'];
                             }
 
                         array_push($formatted_fields, $field_data);
