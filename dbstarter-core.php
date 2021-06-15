@@ -211,6 +211,10 @@ class DBStarter_Core {
 
                         $my_key = 'db_field_' . $field['name'] . $static_key;
 
+                        if($field['type'] == 'relationship') {
+                            print_r($field);
+                        }
+
                         $field_data =
                             array (
                                 'key' => $my_key,
@@ -247,6 +251,16 @@ class DBStarter_Core {
                                 $field_data['button_label'] = $field['button_label'];
                                 $field_data['layout'] = $field['layout'];
                                 $field_data['sub_fields'] = $field['sub_fields'];
+                            }
+
+                            if($field['type'] == 'relationship') {
+                                $field_data['post_type'] = $field['post_type'];
+                                $field_data['taxonomy'] = $field['taxonomy'];
+                                $field_data['filters'] = $field['filters'];
+                                $field_data['elements'] = $field['elements'];
+                                $field_data['return_format'] = $field['return_format'];
+                                $field_data['min'] = $field['min'];
+                                $field_data['max'] = $field['max'];
                             }
 
                         array_push($formatted_fields, $field_data);
