@@ -211,10 +211,6 @@ class DBStarter_Core {
 
                         $my_key = 'db_field_' . $field['name'] . $static_key;
 
-                        if($field['type'] == 'select') {
-                            print_r($field);
-                        }
-
                         $field_data =
                             array (
                                 'key' => $my_key,
