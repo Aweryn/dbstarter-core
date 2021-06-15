@@ -211,6 +211,10 @@ class DBStarter_Core {
 
                         $my_key = 'db_field_' . $field['name'] . $static_key;
 
+                        if($field['type'] == 'repeater') {
+                            print_r($field);
+                        }
+
                         $field_data =
                             array (
                                 'key' => $my_key,
@@ -234,10 +238,19 @@ class DBStarter_Core {
                                 'disabled' => 0,
                             );
 
+                            // Append custom values based on field type
                             if($field['type'] == 'true_false') {
                                 $field_data['ui'] = 1;
                                 $field_data['ui_on_text'] = $field['ui_on_text'];
                                 $field_data['ui_off_text'] = $field['ui_off_text'];
+                            }
+
+                            if($field['type'] == 'repeater') {
+                                $field_data['acfe_repeater_stylised_button'] = $field['acfe_repeater_stylised_button'];
+                                $field_data['collapsed'] = $field['collapsed'];
+                                $field_data['button_label'] = $field['button_label'];
+                                $field_data['layout'] = $field['layout'];
+                                $field_data['sub_fields'] = $field['sub_fields'];
                             }
 
                         array_push($formatted_fields, $field_data);
