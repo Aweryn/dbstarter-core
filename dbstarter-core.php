@@ -320,6 +320,7 @@ class DBStarter_Core {
                 )
             ));
 
+            if(function_exists('env')) {
             if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
                 acf_add_local_field_group(array(
                     'key' => 'db_generate_template',
@@ -383,6 +384,7 @@ class DBStarter_Core {
                     ),
                     'position' => 'side',
                 ));
+            }                
             }
 
             if( function_exists('acf_add_local_field_group') ):
