@@ -35,8 +35,10 @@ class DBStarter_Core {
         // Load checklist fields from a separate file
         // add_action('acf/init', 'db_register_checklist');
 
-        if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
-            add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
+        if(function_exists('env')) {
+            if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
+                add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
+            }
         }
 
         // add_action('init', array($this, 'register_user_fields'), 20);
