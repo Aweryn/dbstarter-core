@@ -234,8 +234,17 @@ class DBStarter_Core {
                                 'disabled' => 0,
                             );
 
+                            if($field['type'] == 'flexible_content') {
+                                $field_data['layouts'] = $field['layouts'];
+                            }
+                            
+                            if($field['conditional_logic']) {
+                                $field_data['conditional_logic'] = $field['conditional_logic'];
+                                $field_data['parent'] = $field['parent'];
+                            }
+
                             // Append custom values based on field type
-                            if($field['type'] == 'true_false') {
+                            if($field['type'] == 'true_false') {                                
                                 $field_data['ui'] = 1;
                                 $field_data['ui_on_text'] = $field['ui_on_text'];
                                 $field_data['ui_off_text'] = $field['ui_off_text'];
