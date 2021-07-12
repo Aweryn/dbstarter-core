@@ -234,6 +234,12 @@ class DBStarter_Core {
                                 'disabled' => 0,
                             );
 
+                            if($field['type'] == 'acfe_taxonomies') {
+                                $field_data['field_type'] = $field['field_type'];
+                                $field_data['return_format'] = $field['return_format'];
+                                $field_data['allow_null'] = $field['allow_null'];
+                            }
+
                             if($field['type'] == 'flexible_content') {
                                 $field_data['layouts'] = $field['layouts'];
                             }
