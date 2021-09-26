@@ -95,6 +95,8 @@ class DBStarter_Core {
             foreach($page_layouts as $layout) {
 
                 $name = $layout['name'];
+                $name = sanitize_title($name);
+
                 if(in_array($name, $used_layouts)) {
                     $fields = $layout['sub_fields'];
 
@@ -292,6 +294,7 @@ class DBStarter_Core {
 
                 $name = strtolower($layout['title']);
                 $formatted_name = preg_replace('/\s+/', '_', $name);
+                $formatted_name = sanitize_title($formatted_name);
                 $data = array (
                     'key' => 'db_field_' . $formatted_name,
                     'name' => $formatted_name,
