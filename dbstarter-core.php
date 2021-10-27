@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-use function Env\env;
+// use function Env\env;
 
 define ( 'DBSTARTER_MAIN_FILE' , __FILE__ );
 define ( 'PLUGIN_NAME', __FILE__ );
@@ -35,9 +35,9 @@ class DBStarter_Core {
         // Load checklist fields from a separate file
         // add_action('acf/init', 'db_register_checklist');
 
-            if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
+            // if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
                 add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
-            }
+            // }
 
         // add_action('init', array($this, 'register_user_fields'), 20);
         add_action('acfe/fields/button/key=db_generate_template_button', array($this, 'db_generate_template_ajax'), 30, 2);
@@ -343,7 +343,7 @@ class DBStarter_Core {
                 )
             ));
 
-            if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
+            // if(env('WP_ENV') == 'development' || env('WP_ENV') == 'staging') {
                 acf_add_local_field_group(array(
                     'key' => 'db_generate_template',
                     'title' => 'DB Page tools',
@@ -406,7 +406,7 @@ class DBStarter_Core {
                     ),
                     'position' => 'side',
                 ));
-            }
+            // }
 
             if( function_exists('acf_add_local_field_group') ):
 
